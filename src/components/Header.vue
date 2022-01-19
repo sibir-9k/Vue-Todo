@@ -1,0 +1,18 @@
+<template>
+	<nav class="navbar navbar-light bg-success">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">
+				<div class="d-flex align-items-center">
+					<img src="@/assets/logo.png" width="100" height="100" className="d-inline-block " alt="" loading="lazy" />
+					<h2 class="text-light">Vue-ToDo</h2>
+				</div>
+			</a>
+		</div>
+	</nav>
+</template>
+
+<script>
+	export default {
+		name: "Header",
+	};
+</script>

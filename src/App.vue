@@ -1,32 +1,36 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+	<div id="app">
+		<Header />
+		<Main v-bind:todos="todos" @deleted-todo="deletedTodo" @add-todo="addTodo" />
+	</div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+	import Header from "@/components/Header";
+	import Main from "@/components/Main";
 
-#nav {
-  padding: 30px;
-}
+	export default {
+		name: "app",
+		data() {
+			return {
+				todos: [
+					{id: "1", title: "number 1", checked: false},
+					{id: "2", title: "number 2", checked: false},
+					{id: "3", title: "number 3", checked: false},
+				],
+			};
+		},
+		methods: {
+			deletedTodo(id) {
+				this.todos = this.todos.filter((t) => t.id !== id);
+			},
+			addTodo() {},
+		},
+		components: {
+			Header,
+			Main,
+		},
+	};
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<style></style>
