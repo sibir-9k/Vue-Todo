@@ -1,6 +1,5 @@
 module.exports = {
-  productionSourceMap: false,  
-  outputDir: '../dist',
-  assetsDir: 'static',
-  indexPath: 'templates/index.html'
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/something/'
+    : '/'
 };
