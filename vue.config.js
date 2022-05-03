@@ -1,5 +1,6 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/Vue-Todo/'
-    : '/'
-}
+  productionSourceMap: false,  
+  outputDir: '../dist',
+  assetsDir: 'static',
+  indexPath: 'templates/index.html'
+};
