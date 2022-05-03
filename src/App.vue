@@ -1,36 +1,55 @@
 <template>
-	<div id="app">
-		<Header />
-		<Main v-bind:todos="todos" @deleted-todo="deletedTodo" @add-todo="addTodo" />
-	</div>
+  <div>
+    <Header :done="done" :undone="undone" />
+    <Main
+      v-bind:todos="todos"
+      @deleted-todo="deletedTodo"
+      @add-todo="addTodo"
+    />
+  </div>
 </template>
 
 <script>
-	import Header from "@/components/Header";
-	import Main from "@/components/Main";
+import Header from "@/components/Header";
+import Main from "@/components/Main";
 
-	export default {
-		name: "app",
-		data() {
-			return {
-				todos: [
-					{id: "1", title: "number 1", checked: false},
-					{id: "2", title: "number 2", checked: false},
-					{id: "3", title: "number 3", checked: false},
-				],
-			};
-		},
-		methods: {
-			deletedTodo(id) {
-				this.todos = this.todos.filter((t) => t.id !== id);
-			},
-			addTodo() {},
-		},
-		components: {
-			Header,
-			Main,
-		},
-	};
+export default {
+  name: "app",
+  components: {
+    Header,
+    Main,
+  },
+  data() {
+    return {
+      todos: [],
+    };
+  },
+  mounted() {
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then((response) => response.json())
+      .then((json) => {
+        this.todos = json.map((elem) => ({
+          key: elem.id,
+          title: elem.title,
+          checked: elem.completed,
+        }));
+      });
+  },
+  computed: {
+    done: function () {
+      return this.todos.filter((item) => item.checked).length;
+    },
+    undone: function () {
+      return this.todos.filter((item) => !item.checked).length;
+    },
+  },
+  methods: {
+    deletedTodo(key) {
+      this.todos = this.todos.filter((t) => t.key !== key);
+    },
+    addTodo(todo) {
+      this.todos.unshift(todo);
+    },
+  },
+};
 </script>
-
-<style></style>
